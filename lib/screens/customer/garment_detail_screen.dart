@@ -56,15 +56,18 @@ class _GarmentDetailScreenState extends State<GarmentDetailScreen> {
                   LGSpacing.md,
                   0,
                 ),
-                child: Material(
-                  color: theme.colorScheme.surface,
-                  shape: const CircleBorder(),
-                  child: InkWell(
-                    customBorder: const CircleBorder(),
-                    onTap: () => Navigator.of(context).maybePop(),
-                    child: const Padding(
-                      padding: EdgeInsets.all(10),
-                      child: Icon(Icons.arrow_back, size: 18),
+                child: Align(
+                  alignment: Alignment.topLeft,
+                  child: Material(
+                    color: theme.colorScheme.surface,
+                    shape: const CircleBorder(),
+                    child: InkWell(
+                      customBorder: const CircleBorder(),
+                      onTap: () => Navigator.of(context).maybePop(),
+                      child: const Padding(
+                        padding: EdgeInsets.all(10),
+                        child: Icon(Icons.arrow_back, size: 18),
+                      ),
                     ),
                   ),
                 ),

@@ -130,28 +130,36 @@ class ServiceDetailScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SafeArea(
-                      bottom: false,
-                      child: Padding(
-                        padding: const EdgeInsets.fromLTRB(
-                          LGSpacing.md,
-                          LGSpacing.sm,
-                          LGSpacing.md,
-                          0,
-                        ),
-                        child: Material(
-                          color: Colors.white.withValues(alpha: 0.9),
-                          shape: const CircleBorder(),
-                          elevation: 3,
-                          child: InkWell(
-                            customBorder: const CircleBorder(),
-                            onTap: () => Navigator.of(context).maybePop(),
-                            child: const Padding(
-                              padding: EdgeInsets.all(10),
-                              child: Icon(
-                                Icons.arrow_back,
-                                size: 18,
-                                color: LGColors.midnight,
+                    Positioned(
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      child: SafeArea(
+                        bottom: false,
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(
+                            LGSpacing.md,
+                            LGSpacing.sm,
+                            LGSpacing.md,
+                            0,
+                          ),
+                          child: Align(
+                            alignment: Alignment.topLeft,
+                            child: Material(
+                              color: Colors.white.withValues(alpha: 0.9),
+                              shape: const CircleBorder(),
+                              elevation: 3,
+                              child: InkWell(
+                                customBorder: const CircleBorder(),
+                                onTap: () => Navigator.of(context).maybePop(),
+                                child: const Padding(
+                                  padding: EdgeInsets.all(10),
+                                  child: Icon(
+                                    Icons.arrow_back,
+                                    size: 18,
+                                    color: LGColors.midnight,
+                                  ),
+                                ),
                               ),
                             ),
                           ),
