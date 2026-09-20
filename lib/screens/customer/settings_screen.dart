@@ -5,7 +5,9 @@ import '../../components/customer/settings_row.dart';
 import '../../components/delete_account_dialog.dart';
 import '../../design_system/colors.dart';
 import '../../design_system/spacing.dart';
+import '../../i18n/strings.dart';
 import '../../navigation/app_routes.dart';
+import '../../state/locale_controller.dart';
 import '../../state/orders_controller.dart';
 import 'appearance_screen.dart';
 import 'states/network_error_screen.dart';
@@ -34,6 +36,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         ? LGColors.redDark
         : LGColors.red;
     final orders = context.watch<OrdersController>();
+    final localeController = context.watch<LocaleController>();
 
     return Scaffold(
       body: SafeArea(
@@ -76,14 +79,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   ),
                 ),
                 const SizedBox(height: LGSpacing.lg),
-                Text('App', style: theme.textTheme.titleLarge),
+                Text(tr(context, 'App'), style: theme.textTheme.titleLarge),
                 const SizedBox(height: LGSpacing.sm),
                 SettingsGroup(
                   children: [
                     SettingsRow(
                       icon: Icons.tune,
-                      title: 'Appearance',
-                      subtitle: 'Light, dark or match system',
+                      title: tr(context, 'Appearance'),
+                      subtitle: tr(context, 'Light, dark or match system'),
                       onTap: () => Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (_) => const AppearanceScreen(),
@@ -92,8 +95,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     ),
                     SettingsRow(
                       icon: Icons.notifications_active_outlined,
-                      title: 'Push Notifications',
-                      subtitle: 'Order updates and offers',
+                      title: tr(context, 'Push Notifications'),
+                      subtitle: tr(context, 'Order updates and offers'),
                       trailing: Switch(
                         value: _pushNotifications,
                         activeThumbColor: red,
@@ -113,38 +116,51 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     ),
                     SettingsRow(
                       icon: Icons.language_outlined,
-                      title: 'Language',
-                      subtitle: 'English',
+                      title: tr(context, 'Language'),
+                      subtitle: localeController.isArabic
+                          ? 'العربية'
+                          : 'English',
                       onTap: () => showDialog<void>(
                         context: context,
                         builder: (dialogContext) => SimpleDialog(
-                          title: const Text('Language'),
+                          title: Text(tr(context, 'Language')),
                           children: [
                             SimpleDialogOption(
-                              onPressed: () =>
-                                  Navigator.of(dialogContext).pop(),
-                              child: const Row(
+                              onPressed: () {
+                                localeController.setArabic(false);
+                                Navigator.of(dialogContext).pop();
+                              },
+                              child: Row(
                                 children: [
-                                  Icon(Icons.check, size: 16),
-                                  SizedBox(width: 8),
-                                  Text('English'),
+                                  Icon(
+                                    Icons.check,
+                                    size: 16,
+                                    color: localeController.isArabic
+                                        ? Colors.transparent
+                                        : null,
+                                  ),
+                                  const SizedBox(width: 8),
+                                  const Text('English'),
                                 ],
                               ),
                             ),
                             SimpleDialogOption(
                               onPressed: () {
+                                localeController.setArabic(true);
                                 Navigator.of(dialogContext).pop();
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text(
-                                      'Arabic support is on the way.',
-                                    ),
-                                  ),
-                                );
                               },
-                              child: const Padding(
-                                padding: EdgeInsets.only(left: 24),
-                                child: Text('العربية'),
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Icons.check,
+                                    size: 16,
+                                    color: localeController.isArabic
+                                        ? null
+                                        : Colors.transparent,
+                                  ),
+                                  const SizedBox(width: 8),
+                                  const Text('العربية'),
+                                ],
                               ),
                             ),
                           ],
@@ -154,34 +170,37 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   ],
                 ),
                 const SizedBox(height: LGSpacing.lg),
-                Text('Account', style: theme.textTheme.titleLarge),
+                Text(tr(context, 'Account'), style: theme.textTheme.titleLarge),
                 const SizedBox(height: LGSpacing.sm),
                 SettingsGroup(
                   children: [
                     SettingsRow(
                       icon: Icons.lock_reset_outlined,
-                      title: 'Change Password',
-                      subtitle: 'Update your account password',
+                      title: tr(context, 'Change Password'),
+                      subtitle: tr(context, 'Update your account password'),
                       onTap: () =>
                           Navigator.of(context)
                               .pushNamed(AppRoutes.forgotPassword),
                     ),
                     SettingsRow(
                       icon: Icons.logout,
-                      title: 'Log Out',
-                      subtitle: 'Sign out of this device',
+                      title: tr(context, 'Log Out'),
+                      subtitle: tr(context, 'Sign out of this device'),
                       onTap: () => showDialog<void>(
                         context: context,
                         builder: (dialogContext) => AlertDialog(
-                          title: const Text('Log out?'),
-                          content: const Text(
-                            "You'll need to sign back in to book pickups.",
+                          title: Text(tr(context, 'Log out?')),
+                          content: Text(
+                            tr(
+                              context,
+                              "You'll need to sign back in to book pickups.",
+                            ),
                           ),
                           actions: [
                             TextButton(
                               onPressed: () =>
                                   Navigator.of(dialogContext).pop(),
-                              child: const Text('Cancel'),
+                              child: Text(tr(context, 'Cancel')),
                             ),
                             TextButton(
                               onPressed: () {
@@ -192,7 +211,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                 );
                               },
                               child: Text(
-                                'Log Out',
+                                tr(context, 'Log Out'),
                                 style: TextStyle(color: red),
                               ),
                             ),
@@ -202,8 +221,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     ),
                     SettingsRow(
                       icon: Icons.delete_outline,
-                      title: 'Delete Account',
-                      subtitle: 'Permanently delete your account and data',
+                      title: tr(context, 'Delete Account'),
+                      subtitle: tr(
+                        context,
+                        'Permanently delete your account and data',
+                      ),
                       onTap: () => showDeleteAccountDialog(
                         context,
                         onConfirmed: () {
@@ -222,13 +244,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   ],
                 ),
                 const SizedBox(height: LGSpacing.lg),
-                Text('Troubleshooting', style: theme.textTheme.titleLarge),
+                Text(
+                  tr(context, 'Troubleshooting'),
+                  style: theme.textTheme.titleLarge,
+                ),
                 const SizedBox(height: LGSpacing.sm),
                 SettingsGroup(
                   children: [
                     SettingsRow(
                       icon: Icons.wifi_off_outlined,
-                      title: 'Connection Status',
+                      title: tr(context, 'Connection Status'),
                       subtitle: "See what LaundryGo looks like offline",
                       onTap: () => Navigator.of(context).push(
                         MaterialPageRoute(
@@ -238,7 +263,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     ),
                     SettingsRow(
                       icon: Icons.error_outline,
-                      title: 'Report a Technical Issue',
+                      title: tr(context, 'Report a Technical Issue'),
                       subtitle: 'Simulate and preview an error state',
                       onTap: () => Navigator.of(context).push(
                         MaterialPageRoute(
@@ -248,7 +273,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     ),
                     SettingsRow(
                       icon: Icons.delete_sweep_outlined,
-                      title: 'Clear Order History',
+                      title: tr(context, 'Clear Order History'),
                       subtitle: orders.pastOrders.isEmpty
                           ? 'Already empty'
                           : '${orders.pastOrders.length} past orders',

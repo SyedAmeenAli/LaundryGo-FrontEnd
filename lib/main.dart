@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 
 import 'data/mock_customer_data.dart';
@@ -45,6 +46,7 @@ import 'state/cart_controller.dart';
 import 'state/favorites_controller.dart';
 import 'state/location_controller.dart';
 import 'state/driver_controller.dart';
+import 'state/locale_controller.dart';
 import 'state/orders_controller.dart';
 import 'state/partner_controller.dart';
 import 'state/theme_controller.dart';
@@ -64,6 +66,7 @@ class LaundryGoFlowApp extends StatefulWidget {
 
 class _LaundryGoFlowAppState extends State<LaundryGoFlowApp> {
   final ThemeController _themeController = ThemeController()..load();
+  final LocaleController _localeController = LocaleController()..load();
   final CartController _cartController = CartController();
   final AddressesController _addressesController = AddressesController();
   final FavoritesController _favoritesController = FavoritesController();
@@ -78,6 +81,9 @@ class _LaundryGoFlowAppState extends State<LaundryGoFlowApp> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<ThemeController>.value(value: _themeController),
+        ChangeNotifierProvider<LocaleController>.value(
+          value: _localeController,
+        ),
         ChangeNotifierProvider<CartController>.value(value: _cartController),
         ChangeNotifierProvider<AddressesController>.value(
           value: _addressesController,
@@ -101,14 +107,22 @@ class _LaundryGoFlowAppState extends State<LaundryGoFlowApp> {
           value: _adminController,
         ),
       ],
-      child: Consumer<ThemeController>(
-        builder: (context, themeController, _) => MaterialApp(
+      child: Consumer2<ThemeController, LocaleController>(
+        builder: (context, themeController, localeController, _) =>
+            MaterialApp(
           title: 'LaundryGo',
           scaffoldMessengerKey: scaffoldMessengerKey,
           debugShowCheckedModeBanner: false,
           theme: LGTheme.light,
           darkTheme: LGTheme.dark,
           themeMode: themeController.mode,
+          locale: localeController.locale,
+          supportedLocales: const [Locale('en'), Locale('ar')],
+          localizationsDelegates: const [
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
           initialRoute: AppRoutes.splash,
           routes: {
             AppRoutes.splash: (_) => const SplashScreen(),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../i18n/strings.dart';
 import '../design_system/colors.dart';
 import '../design_system/motion.dart';
 import '../design_system/spacing.dart';
@@ -120,7 +121,7 @@ class AppBottomNav extends StatelessWidget {
                         ),
                         const SizedBox(height: 2),
                         Text(
-                          items[i].label,
+                          tr(context, items[i].label),
                           style: theme.textTheme.labelSmall?.copyWith(
                             color: i == currentIndex
                                 ? red

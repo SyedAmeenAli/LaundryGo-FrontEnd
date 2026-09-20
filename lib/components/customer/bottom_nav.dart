@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../i18n/strings.dart';
 import '../../design_system/colors.dart';
 import '../../design_system/motion.dart';
 import '../../design_system/spacing.dart';
@@ -112,7 +113,7 @@ class LaundryGoBottomNav extends StatelessWidget {
                         ),
                         const SizedBox(height: 2),
                         Text(
-                          _items[i].$3,
+                          tr(context, _items[i].$3),
                           style: theme.textTheme.labelSmall?.copyWith(
                             color: i == currentIndex
                                 ? red
