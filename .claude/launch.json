@@ -1,0 +1,12 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "laundrygo-web",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "$PORT", "--directory", "build/web"],
+      "port": 8765,
+      "autoPort": true
+    }
+  ]
+}
