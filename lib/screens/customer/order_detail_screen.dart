@@ -74,7 +74,11 @@ class OrderDetailScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Padding(
+                    Positioned(
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      child: Padding(
                       padding: const EdgeInsets.fromLTRB(
                         LGSpacing.sm,
                         LGSpacing.sm,
@@ -231,6 +235,7 @@ class OrderDetailScreen extends StatelessWidget {
                           ),
                         ],
                       ),
+                    ),
                     ),
                   ],
                 ),

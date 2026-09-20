@@ -103,40 +103,45 @@ class _SchedulePickupScreenState extends State<SchedulePickupScreen> {
                         ),
                       ),
                     ),
-                    SafeArea(
-                      bottom: false,
-                      child: Padding(
-                        padding: const EdgeInsets.fromLTRB(
-                          LGSpacing.md,
-                          LGSpacing.sm,
-                          LGSpacing.md,
-                          0,
-                        ),
-                        child: Row(
-                          children: [
-                            Material(
-                              color: Colors.white.withValues(alpha: 0.9),
-                              shape: const CircleBorder(),
-                              elevation: 3,
-                              child: InkWell(
-                                customBorder: const CircleBorder(),
-                                onTap: () => Navigator.of(context).pop(),
-                                child: const Padding(
-                                  padding: EdgeInsets.all(8),
-                                  child: Icon(
-                                    Icons.arrow_back,
-                                    size: 18,
-                                    color: LGColors.midnight,
+                    Positioned(
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      child: SafeArea(
+                        bottom: false,
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(
+                            LGSpacing.md,
+                            LGSpacing.sm,
+                            LGSpacing.md,
+                            0,
+                          ),
+                          child: Row(
+                            children: [
+                              Material(
+                                color: Colors.white.withValues(alpha: 0.9),
+                                shape: const CircleBorder(),
+                                elevation: 3,
+                                child: InkWell(
+                                  customBorder: const CircleBorder(),
+                                  onTap: () => Navigator.of(context).pop(),
+                                  child: const Padding(
+                                    padding: EdgeInsets.all(8),
+                                    child: Icon(
+                                      Icons.arrow_back,
+                                      size: 18,
+                                      color: LGColors.midnight,
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                            const SizedBox(width: LGSpacing.sm),
-                            Image.asset(
-                              LaundryGoAssets.logoHorizontal,
-                              height: 26,
-                            ),
-                          ],
+                              const SizedBox(width: LGSpacing.sm),
+                              Image.asset(
+                                LaundryGoAssets.logoHorizontal,
+                                height: 26,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),

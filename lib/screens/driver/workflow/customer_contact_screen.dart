@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../../../design_system/colors.dart';
 import '../../../design_system/spacing.dart';
 import '../../../state/driver_controller.dart';
+import 'customer_chat_screen.dart';
 
 /// #67 Customer / Contact — call or message the customer for this job.
 class CustomerContactScreen extends StatelessWidget {
@@ -83,11 +84,9 @@ class CustomerContactScreen extends StatelessWidget {
                       icon: Icons.chat_bubble_outline,
                       label: 'Message',
                       color: red,
-                      onTap: () => ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(
-                            'Opening chat with ${job.customerName}...',
-                          ),
+                      onTap: () => Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) => CustomerChatScreen(job: job),
                         ),
                       ),
                     ),

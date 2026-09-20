@@ -57,7 +57,11 @@ class _PartnerDetailScreenState extends State<PartnerDetailScreen> {
                   fit: StackFit.expand,
                   children: [
                     Image.asset(partner.image, fit: BoxFit.cover),
-                    SafeArea(
+                    Positioned(
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      child: SafeArea(
                       bottom: false,
                       child: Padding(
                         padding: const EdgeInsets.all(LGSpacing.md),
@@ -104,6 +108,7 @@ class _PartnerDetailScreenState extends State<PartnerDetailScreen> {
                             ),
                           ],
                         ),
+                      ),
                       ),
                     ),
                   ],

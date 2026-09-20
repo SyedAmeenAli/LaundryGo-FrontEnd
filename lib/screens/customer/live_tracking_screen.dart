@@ -477,7 +477,7 @@ class _RoundIconButton extends StatelessWidget {
           CircleAvatar(
             radius: 18,
             backgroundColor: theme.colorScheme.surfaceContainerHighest,
-            child: Icon(icon, size: 16),
+            child: Icon(icon, size: 16, color: theme.colorScheme.onSurface),
           ),
           const SizedBox(height: 2),
           Text(label, style: theme.textTheme.labelSmall),
